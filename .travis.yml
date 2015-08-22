@@ -1,0 +1,9 @@
+languages: node_js
+before_script:
+    - npm install -g gulp
+script: gulp
+install:
+    - npm install
+branches:
+    only:
+        - master
