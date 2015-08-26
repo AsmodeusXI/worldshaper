@@ -1,0 +1,21 @@
+{
+  "name": "worldshaper",
+  "version": "0.1.0",
+  "description": "An app that helps GMs and players create worlds to play in.",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AsmodeusXI/worldshaper.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AsmodeusXI/worldshaper/issues"
+  },
+  "homepage": "https://github.com/AsmodeusXI/worldshaper#readme",
+  "dependencies": {
+    "angular": "^1.4.4"
+  }
+}
