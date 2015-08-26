@@ -1,1 +1,6 @@
-var worldshaper = angular.module('worldshaper', []);
+angular.module(
+    'worldshaper',
+    [ // dependencies
+        'worldshaper.dashboard'
+    ]
+);
