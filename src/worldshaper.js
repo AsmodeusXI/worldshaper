@@ -1,6 +1,6 @@
 angular.module(
     'worldshaper',
-    [ // dependencies
+    [ /* dependencies */
         'worldshaper.dashboard'
     ]
 );
