@@ -8,9 +8,9 @@
         <script src="dashboard/dashboardCtrl.js" type="text/javascript"></script>
     </head>
 
-    <body ng-controller='dashboardCtrl'>
+    <body ng-controller='dashboardCtrl as dashboardCtrl'>
         <div class="container">
-            {{model.display}}
+            {{dashboardCtrl.model.display}}
         </div> <!-- container -->
     </body>
 </html>
