@@ -12,7 +12,7 @@
         };
 
         function getMonsters() {
-            return $http.get('/api/monster')
+            return $http.get('http://localhost:8080/api/monster')
                         .then(function (response) {
                             return response;
                         })

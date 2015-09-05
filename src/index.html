@@ -4,13 +4,17 @@
         <title>Worldshaper</title>
         <script src="../node_modules/angular/angular.min.js" type="text/javascript"></script>
         <script src="worldshaper.js" type="text/javascript"></script>
-        <script src="dashboard/dashboard.module.js" type="text/javascript"></script>
-        <script src="dashboard/dashboardCtrl.js" type="text/javascript"></script>
+        <script src="monster/monster.module.js" type="text/javascript"></script>
+        <script src="monster/monsterCtrl.js" type="text/javascript"></script>
+        <script src="monster/monsterSvc.js" type="text/javascript"></script>
     </head>
 
-    <body ng-controller='dashboardCtrl as dashboardCtrl'>
+    <body ng-controller='monsterCtrl as monsterCtrl'>
         <div class="container">
-            {{dashboardCtrl.model.display}}
+            {{monsterCtrl.model.display}}
+            <div class="monsters" ng-repeat='monster in monsterCtrl.model.monsters'>
+                {{monster.name}} and {{monster.hp}}
+            </div> <!-- monsters -->
         </div> <!-- container -->
     </body>
 </html>
