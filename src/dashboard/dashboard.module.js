@@ -1,4 +1,9 @@
-angular.module(
-    'worldshaper.dashboard',
-    [ /* dependencies */ ]
-);
+(function () {
+    'use strict';
+
+    angular.module(
+        'worldshaper.dashboard',
+        [ /* dependencies */ ]
+    );
+    
+})();

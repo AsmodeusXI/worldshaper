@@ -2,8 +2,9 @@
 
     describe('dashboardCtrl', function () {
 
-        var controller, scope;
         beforeEach(module('worldshaper.dashboard'));
+
+        var controller, scope;
         beforeEach(inject(function ($controller, $rootScope) {
             scope = $rootScope.$new();
             controller = $controller('dashboardCtrl', {
