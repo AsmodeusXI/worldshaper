@@ -28,6 +28,25 @@
 
         });
 
+        describe('#postMonster', function () {
+            it('should post a monster and return a single monster', function testPostMonster() {
+                var createdMonster, returnStatus;
+                var toPostMonster = {
+                    name: 'Kobold',
+                    hp: 16
+                };
+                $httpBackend.expectPOST('http://localhost:8080/api/monster', toPostMonster).respond(200, {name: 'Kobold', hp: 16});
+                monsterSvc.postMonster(toPostMonster).then(function (response) {
+                    createdMonster = response.data;
+                    returnStatus = response.status;
+                });
+                $httpBackend.flush();
+                expect(returnStatus).toEqual(200);
+                expect(createdMonster.name).toEqual('Kobold');
+                expect(createdMonster.hp).toEqual(16);
+            });
+        });
+
     });
 
 })();

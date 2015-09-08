@@ -11,10 +11,18 @@
 
     <body ng-controller='monsterCtrl as monsterCtrl'>
         <div class="container">
-            {{monsterCtrl.model.display}}
+            List of Monsters
             <div class="monsters" ng-repeat='monster in monsterCtrl.model.monsters'>
                 {{monster.name}} and {{monster.hp}}
             </div> <!-- monsters -->
+            <div class="enter-monsters">
+                Enter a new monster here:
+                <form class='new-monster-form'>
+                    Enter Name: <input ng-model='monsterCtrl.model.newMonster.name'></input>
+                    Enter HP: <input ng-model='monsterCtrl.model.newMonster.hp'></input>
+                    <button class='create-monster-button' ng-click='monsterCtrl.createMonster()'>Create!</button>
+                </form> <!-- new-monster-form -->
+            </div> <!-- enter-monsters -->
         </div> <!-- container -->
     </body>
 </html>
