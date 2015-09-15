@@ -1,7 +1,7 @@
 languages: node_js
 before_script:
     - npm install -g gulp
-script: gulp deploy
+script: gulp
 install:
     - npm install
 branches:
