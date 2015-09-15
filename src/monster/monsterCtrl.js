@@ -8,7 +8,10 @@
     monsterCtrl.$inject = ['monsterSvc'];
 
     function monsterCtrl(monsterSvc) {
+
+        /* jshint validthis: true */
         var vm = this;
+
         vm.model = {
             monsters: [],
             newMonster: {
@@ -37,7 +40,7 @@
                             vm.model.monsters.push(response.data);
                         })
                         .catch(function (response) {
-                            console.log('Post error?!')
+                            console.log('Post error?!');
                         })
                         .finally(function () {
                             vm.model.newMonster = null;

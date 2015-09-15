@@ -1,0 +1,38 @@
+.monster-container {
+    margin: 10px;
+    padding: 10px;
+    border: 1px solid #d7d7d7;
+    border-radius: 4px;
+
+    .monster-title {
+        display: flex;
+        font-size: 30px;
+    } //monster-title
+
+    .monster-card {
+        color: blue;
+        width: 50%;
+        margin: 5px;
+        padding: 5px;
+        border: 1px solid #d7d7d7;
+        border-radius: 4px;
+        display: flex;
+        align-items: flex-start;
+
+        .monster-name {
+            font-size: 20px;
+            font-weight: 300;
+            flex: 0.2;
+        } //monster-name
+
+        .monster-stats {
+            flex: 0.2;
+            .monster-hp {
+                color:red;
+            } //monster-hp
+            .monster-exp {
+                color:green;
+            } //monster-exp
+        } //monster-stats
+    } //monster-card
+} //monster-container
