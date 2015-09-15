@@ -18,11 +18,14 @@
   "homepage": "https://github.com/AsmodeusXI/worldshaper#readme",
   "dependencies": {
     "angular": "^1.4.4",
+    "del": "^2.0.2",
+    "gulp": "^3.9.0",
+    "gulp-concat": "^2.6.0",
+    "gulp-sourcemaps": "^1.5.2",
     "http-server": "^0.8.0"
   },
   "devDependencies": {
     "angular-mocks": "^1.4.5",
-    "gulp": "^3.9.0",
     "jasmine": "^2.3.2",
     "jasmine-core": "^2.3.4",
     "karma": "^0.13.9",
