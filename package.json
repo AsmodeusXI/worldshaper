@@ -19,6 +19,7 @@
   "dependencies": {
     "angular": "^1.4.4",
     "del": "^2.0.2",
+    "font-awesome": "^4.4.0",
     "gulp": "^3.9.0",
     "gulp-concat": "^2.6.0",
     "gulp-jshint": "^1.12.0",

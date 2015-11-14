@@ -1,30 +1,41 @@
 <!DOCTYPE html>
 <html lang="en" ng-app="worldshaper" id="ng-app">
     <head>
-        <title>Worldshaper</title>
+        <title>Realmshaper</title>
         <script src="../dist/third-party.js" type="text/javascript"></script>
         <script src="../dist/internal.min.js" type="text/javascript"></script>
+        <link rel="stylesheet" href="../node_modules/font-awesome/css/font-awesome.min.css">
         <link rel="stylesheet" href="../dist/index.css">
     </head>
 
-    <body ng-controller='monsterCtrl as monsterCtrl'>
-        <div class="monster-container">
-            <title class="monster-title">Monster Compendium</title>
-            <div class="monster-card" ng-repeat='monster in monsterCtrl.model.monsters'>
-                <div class="monster-name">{{monster.name}}</div>
-                <div class="monster-stats">
-                    <div class="monster-hp">HP: {{monster.hp}}</div>
-                    <div class="monster-exp">EXP: {{monster.exp}}</div>
-                </div> <!-- monster-stats -->
-            </div> <!-- monsters -->
-            <div class="enter-monsters">
-                Enter a new monster here:
+    <body ng-controller='monsterCtrl as monsterCtrl' class="monster-body">
+        <header role="banner" class="monster-title">
+            <div class="monster-title-text">Monster Compendium</div>
+        </header>
+        <main class="monster-container">
+            <section class="monster-card-container">
+                <details open class="monster-card" ng-repeat='monster in monsterCtrl.model.monsters | orderBy:"name"'>
+                    <summary class="monster-header">
+                        <div class="monster-name">{{monster.name}}</div>
+                    </summary> <!-- monster-header -->
+                    <div class="monster-stats">
+                        <div class="monster-hp"><i class="fa fa-heart"></i> {{monster.hp}}</div>
+                        <div class="monster-exp"><i class="fa fa-level-up"></i> {{monster.exp}}</div>
+                    </div> <!-- monster-stats -->
+                </details> <!-- monster-card -->
+            </section> <!-- monster-card-container -->
+            <aside class="monster-creator">
+                <header class="monster-creator-title">
+                    <div class="monster-creator-title-text">
+                        Enter a new monster here:
+                    </div> <!-- monster-creator-title-text -->
+                </header> <!-- monster-creator-title -->
                 <form class='new-monster-form'>
                     Enter Name: <input ng-model='monsterCtrl.model.newMonster.name'></input>
                     Enter HP: <input ng-model='monsterCtrl.model.newMonster.hp'></input>
                     <button class='create-monster-button' ng-click='monsterCtrl.createMonster()'>Create!</button>
                 </form> <!-- new-monster-form -->
-            </div> <!-- enter-monsters -->
-        </div> <!-- container -->
+            </aside> <!-- monster-creator -->
+        </main> <!-- monster-container -->
     </body>
 </html>
