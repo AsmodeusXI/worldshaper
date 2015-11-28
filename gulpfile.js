@@ -4,7 +4,7 @@ var del = require('del');
 var Server = require('karma').Server;
 
 var paths = {
-    scripts: ['src/worldshaper.js', 'src/**/*module.js', 'src/**/*Ctrl.js', 'src/**/*Svc.js'],
+    scripts: ['src/**/*.js', '!src/**/*Spec.js'],
     angular: 'node_modules/angular/**/*.min.js',
     tests: 'src/**/*Spec.js',
     thirdparty: [
