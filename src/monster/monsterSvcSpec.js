@@ -14,7 +14,7 @@
 
             it('should fetch a list of monsters when called', function testGetMonsters() {
                 var monsters, returnStatus;
-                $httpBackend.expectGET('http://localhost:8080/api/monster').respond(200, [{name: 'Goblin', hp: 30}]);
+                $httpBackend.expectGET('http://localhost:8080/api/monsters').respond(200, [{name: 'Goblin', hp: 30}]);
                 monsterSvc.getMonsters().then(function (response) {
                     monsters = response.data;
                     returnStatus = response.status;
@@ -35,7 +35,7 @@
                     name: 'Kobold',
                     hp: 16
                 };
-                $httpBackend.expectPOST('http://localhost:8080/api/monster', toPostMonster).respond(200, {name: 'Kobold', hp: 16});
+                $httpBackend.expectPOST('http://localhost:8080/api/monsters', toPostMonster).respond(200, {name: 'Kobold', hp: 16});
                 monsterSvc.postMonster(toPostMonster).then(function (response) {
                     createdMonster = response.data;
                     returnStatus = response.status;

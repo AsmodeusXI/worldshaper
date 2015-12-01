@@ -6,7 +6,7 @@
 
     monsterSvc.$inject = ['$http'];
 
-    var monsterUrl = 'http://localhost:8080/api/monster';
+    var monsterUrl = 'http://localhost:8080/api/monsters';
     function monsterSvc($http) {
 
         return {
