@@ -1,26 +1,54 @@
-var gulp = require('gulp');
-var plugins = require('gulp-load-plugins')();
-var del = require('del');
-var Server = require('karma').Server;
+const gulp = require('gulp');
+const plugins = require('gulp-load-plugins')();
+const runSequence = require('run-sequence');
+const del = require('del');
+const Server = require('karma').Server;
 
-var paths = {
+const paths = {
     scripts: ['src/**/*.js', '!src/**/*Spec.js'],
+    scriptsNoConfig: ['src/**/*.js', '!src/**/*Spec.js', '!src/config/*.js'],
     angular: 'node_modules/angular/**/*.min.js',
     tests: 'src/**/*Spec.js',
     thirdparty: [
         'node_modules/angular/angular.min.js'
     ],
-    tests: 'src/**/*Spec.js',
     less: 'src/**/*.less',
     html: 'src/**/*.html',
+    source: 'src',
     output: 'dist',
-    gulp: 'gulpfile.js'
+    config: 'src/config'
+}
+
+const wrapper = '(function () {\n\"use strict\";\n\n<%= module %>\n})();'
+
+const options = {
+    local: {
+        environment: 'local',
+        wrap: wrapper
+    },
+    prod: {
+        environment: 'production',
+        wrap: wrapper
+    }
 }
 
 gulp.task('clean:dist', function () {
     del.sync([
-        paths.output
+        paths.output,
+        paths.config
     ]);
+});
+
+gulp.task('build:local-config', function () {
+    return gulp.src('config/worldshaperConfig.json')
+            .pipe(plugins.ngConfig('worldshaper.config', options.local))
+            .pipe(gulp.dest(paths.config));
+});
+
+gulp.task('build:prod-config', function () {
+    return gulp.src('config/worldshaperConfig.json')
+            .pipe(plugins.ngConfig('worldshaper.config', options.prod))
+            .pipe(gulp.dest(paths.config));
 });
 
 gulp.task('build:internal', function () {
@@ -47,27 +75,42 @@ gulp.task('build:less', function () {
                 .pipe(plugins.livereload());
 });
 
-gulp.task('build', [
-    'clean:dist',
-    'build:internal',
-    'build:less',
-    'build:third-party'
-]);
+gulp.task('build-local', function (callback) {
+    runSequence(
+        'clean:dist',
+        'build:local-config',
+        'build:internal',
+        'build:less',
+        'build:third-party',
+        callback
+    );
+});
 
-gulp.task('tests:run', function (done) {
+gulp.task('build-prod', function (callback) {
+    runSequence(
+        'clean:dist',
+        'build:prod-config',
+        'build:internal',
+        'build:less',
+        'build:third-party',
+        callback
+    );
+});
+
+gulp.task('tests:run', ['build-local'], function (done) {
     new Server ({
         configFile: __dirname + '/karma.conf.js',
         singleRun: true
     }, done).start();
 });
 
-gulp.task('default', ['build', 'tests:run']);
+gulp.task('default', ['build-local','tests:run']);
+gulp.task('prod', ['build-prod']);
 
-gulp.task('listen', function () {
-    gulp.start('default');
+gulp.task('listen', ['default'], function () {
     plugins.livereload.listen();
-    gulp.watch(paths.scripts, ['default']);
-    gulp.watch(paths.less, ['build:less']);
-    gulp.watch(paths.html, ['build:less']);
-    gulp.watch(paths.tests, ['tests:run']);
+    gulp.watch(paths.scriptsNoConfig, ['default']).on('change', plugins.livereload.changed);
+    gulp.watch(paths.less, ['build:less']).on('change', plugins.livereload.changed);
+    gulp.watch(paths.html, ['build:less']).on('change', plugins.livereload.changed);
+    gulp.watch(paths.tests, ['tests:run']).on('change', plugins.livereload.changed);
 });

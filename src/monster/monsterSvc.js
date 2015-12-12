@@ -4,10 +4,11 @@
         .module('worldshaper.monster')
         .factory('monsterSvc', monsterSvc);
 
-    monsterSvc.$inject = ['$http'];
+    monsterSvc.$inject = ['$http', 'ENV'];
 
-    var monsterUrl = 'http://localhost:8080/api/monsters';
-    function monsterSvc($http) {
+    function monsterSvc($http, ENV) {
+
+        var monsterUrl = ENV.api + '/monsters';
 
         return {
             getMonsters: getMonsters,

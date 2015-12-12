@@ -3,7 +3,9 @@
 
     angular.module(
         'worldshaper.monster',
-        [ /* dependencies */]
+        [ /* dependencies */
+            'worldshaper.config'
+        ]
     );
 
 })();
