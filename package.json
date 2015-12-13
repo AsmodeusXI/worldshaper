@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "description": "An app that helps GMs and players create worlds to play in.",
   "scripts": {
-    "start": "http-server -a 127.0.0.1 -p 8081",
+    "start": "http-server -a 127.0.0.1 -p 8881",
     "test": "karma start"
   },
   "repository": {
