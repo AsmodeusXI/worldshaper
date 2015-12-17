@@ -13,9 +13,13 @@ install:
 before_script:
 - echo -e "Host $HOST\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
 script: gulp
-after_success:
-- eval "$(ssh-agent -s)"
-- chmod 600 resources/realmshaper.pem
-- ssh-add resources/realmshaper.pem
-- git remote add live ssh://$USER@$HOST/home/bitnami/apps/worldshaper.git
-- git push -f live master
+after_script: gulp prod
+deploy:
+  provider: s3
+  access_key_id: AKIAJJS4DOZOSWWT5ZVA
+  secret_access_key:
+    secure: ccvlOxhmNuyXGGQ3x1hAHjiTHtW92NO7AIXWjTQHz7JG5R1QGreBYnGxsaBiTPCKpZm1oUthCqaoVId9XoDMYn2GCtmuL1lre6plCZnrFjuCJHFSpfY9RPsq6NMGAJzW7CabZ7UHpj37P+33i7JaZHJsGgOMWvC9myuAeNsvUGpXujpCvIS5UGFfJLutaSYgKrpF1cSw3q8r6iJ/sJVC/MGo/QmaxP1zaHa1zxyFXEuNobD151CAcbCzj+ocylJ8T2i28qkGAwmQFAPzx+yu5UMbWEteMdvfImSSXiPT0vh1+SZVTTiAyfXk/wJQS2Q4gmnrQ8b53OruftBdee9Rv6nBtjgc0CMgLld4v1pauNs4gPcQImd7SinRRDsn1xJk8HtTBdV8HTxbk4UCKW/fzQBOyP8zE1MZQgCiiu6wXCiUdIBMQlqWvLnMppwEdIu1g4UbdILeRGtQ9rTqiDqbT6a+G3IY/ZVp0BhugrrQrQe73XpJajCixtmFCz+8Dko4ZJKvPjSVS5twTEujpX9EDFWEZCqGib6eu7M4oWPL7Nw/+7/cobfWY22KJPK2tkW/It6QyCYyVTjNuq8G6lYyfcemwTwi8W4DE6PkzkGso+Zf/5hidKxx8B8hDZTBvf/EtFcmP1GeEIjh/r9szfg0tOfyF+wsUuwGlRtNWwDUC5k=
+  bucket: "realmshaper.com"
+  skip_cleanup: true
+  region: us-west-2
+  local_dir: dist

@@ -2,3 +2,4 @@ node_modules
 dist
 *.pem
 src/config
+.DS_Store

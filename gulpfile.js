@@ -7,10 +7,13 @@ const Server = require('karma').Server;
 const paths = {
     scripts: ['src/**/*.js', '!src/**/*Spec.js'],
     scriptsNoConfig: ['src/**/*.js', '!src/**/*Spec.js', '!src/config/*.js'],
-    angular: 'node_modules/angular/**/*.min.js',
     tests: 'src/**/*Spec.js',
-    thirdparty: [
-        'node_modules/angular/angular.min.js'
+    angular: 'node_modules/angular/**/*.min.js',
+    styles: [
+        'node_modules/font-awesome/css/font-awesome.min.css'
+    ],
+    fonts: [
+        'node_modules/font-awesome/fonts/**/*'
     ],
     less: 'src/**/*.less',
     html: 'src/**/*.html',
@@ -62,10 +65,25 @@ gulp.task('build:internal', function () {
                 .pipe(gulp.dest(paths.output));
 });
 
-gulp.task('build:third-party', function () {
+gulp.task('build:copy-html', function () {
+    return gulp.src(paths.html)
+                .pipe(gulp.dest(paths.output));
+});
+
+gulp.task('build:angular', function () {
     return gulp.src(paths.angular)
                 .pipe(plugins.concat('third-party.js'))
                 .pipe(gulp.dest(paths.output));
+});
+
+gulp.task('build:styles', function () {
+    return gulp.src(paths.styles)
+                .pipe(gulp.dest(paths.output));
+});
+
+gulp.task('build:fonts', function () {
+    return gulp.src(paths.fonts)
+                .pipe(gulp.dest(paths.output + '/fonts'));
 });
 
 gulp.task('build:less', function () {
@@ -75,11 +93,18 @@ gulp.task('build:less', function () {
                 .pipe(plugins.livereload());
 });
 
+gulp.task('build:third-party', [
+    'build:angular',
+    'build:styles',
+    'build:fonts'
+]);
+
 gulp.task('build-local', function (callback) {
     runSequence(
         'clean:dist',
         'build:local-config',
         'build:internal',
+        'build:copy-html',
         'build:less',
         'build:third-party',
         callback
@@ -91,6 +116,7 @@ gulp.task('build-prod', function (callback) {
         'clean:dist',
         'build:prod-config',
         'build:internal',
+        'build:copy-html',
         'build:less',
         'build:third-party',
         callback
