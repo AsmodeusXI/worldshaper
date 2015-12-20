@@ -123,15 +123,28 @@ gulp.task('build-prod', function (callback) {
     );
 });
 
-gulp.task('tests:run', ['build-local'], function (done) {
+gulp.task('tests:run', function (done) {
     new Server ({
         configFile: __dirname + '/karma.conf.js',
         singleRun: true
     }, done).start();
 });
 
-gulp.task('default', ['build-local','tests:run']);
-gulp.task('prod', ['build-prod', 'tests:run']);
+gulp.task('default', function (callback) {
+    runSequence(
+        'build-local',
+        'tests:run',
+        callback
+    );
+});
+
+gulp.task('prod', function (callback) {
+    runSequence(
+        'build-prod',
+        'tests:run',
+        callback
+    );
+});
 
 gulp.task('listen', ['default'], function () {
     plugins.livereload.listen();

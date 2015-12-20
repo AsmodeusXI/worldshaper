@@ -3,18 +3,19 @@
 
     describe('monsterSvc', function () {
 
-        var monsterSvc, $httpBackend;
+        var monsterSvc, $httpBackend, env;
         beforeEach(module('worldshaper.monster'));
-        beforeEach(inject(function(_monsterSvc_,_$httpBackend_) {
+        beforeEach(inject(function(_monsterSvc_,_$httpBackend_,_ENV_) {
             monsterSvc = _monsterSvc_;
             $httpBackend = _$httpBackend_;
+            env = _ENV_;
         }));
 
         describe('#getMonsters', function () {
 
             it('should fetch a list of monsters when called', function testGetMonsters() {
                 var monsters, returnStatus;
-                $httpBackend.expectGET('http://localhost:8080/api/monsters').respond(200, [{name: 'Goblin', hp: 30}]);
+                $httpBackend.expectGET(env.api + '/monsters').respond(200, [{name: 'Goblin', hp: 30}]);
                 monsterSvc.getMonsters().then(function (response) {
                     monsters = response.data;
                     returnStatus = response.status;
@@ -35,7 +36,7 @@
                     name: 'Kobold',
                     hp: 16
                 };
-                $httpBackend.expectPOST('http://localhost:8080/api/monsters', toPostMonster).respond(200, {name: 'Kobold', hp: 16});
+                $httpBackend.expectPOST(env.api + '/monsters', toPostMonster).respond(200, {name: 'Kobold', hp: 16});
                 monsterSvc.postMonster(toPostMonster).then(function (response) {
                     createdMonster = response.data;
                     returnStatus = response.status;
