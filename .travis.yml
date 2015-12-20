@@ -12,8 +12,7 @@ install:
 - npm install
 before_script:
 - echo -e "Host $HOST\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
-script: gulp
-after_script: gulp prod
+script: gulp prod
 deploy:
   provider: s3
   access_key_id: AKIAJJS4DOZOSWWT5ZVA
