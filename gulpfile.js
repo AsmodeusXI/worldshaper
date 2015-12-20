@@ -131,7 +131,7 @@ gulp.task('tests:run', ['build-local'], function (done) {
 });
 
 gulp.task('default', ['build-local','tests:run']);
-gulp.task('prod', ['build-prod']);
+gulp.task('prod', ['build-prod', 'tests:run']);
 
 gulp.task('listen', ['default'], function () {
     plugins.livereload.listen();
