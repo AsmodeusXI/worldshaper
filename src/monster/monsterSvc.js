@@ -12,6 +12,7 @@
 
         return {
             getMonsters: getMonsters,
+            getMonsterById: getMonsterById,
             postMonster: postMonster
         };
 
@@ -21,7 +22,17 @@
                             return response;
                         })
                         .catch(function (error) {
-                            console.log('Encountered GET error: ' + error);
+                            console.log('Encountered GET error with getMonsters: ' + error);
+                        });
+        }
+
+        function getMonsterById(id) {
+            return $http.get(monsterUrl + '/' + id)
+                        .then(function (response) {
+                            return response;
+                        })
+                        .catch(function (error) {
+                            console.log('Encountered GET error with getMonsterById: ' + error);
                         });
         }
 
