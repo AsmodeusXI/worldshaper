@@ -62,6 +62,39 @@
             });
         });
 
+        describe('#updateMonster', function () {
+            it('should update a monster fetched from the provided id', function testUpdateMonster() {
+                var updatedMonster, returnStatus;
+                var monsterFieldsToUpdate = {
+                    name: 'New Monster Name',
+                    hp: 666
+                };
+                $httpBackend.expectPUT(env.api + '/monsters/test_id', monsterFieldsToUpdate).respond(200, {_id: 'test_id', name: 'New Monster Name', hp: 666});
+                monsterSvc.updateMonster('test_id', monsterFieldsToUpdate).then(function (response) {
+                    updatedMonster = response.data;
+                    returnStatus = response.status;
+                });
+                $httpBackend.flush();
+                expect(returnStatus).toEqual(200);
+                expect(updatedMonster._id).toEqual('test_id');
+                expect(updatedMonster.name).toEqual('New Monster Name');
+                expect(updatedMonster.hp).toEqual(666);
+            });
+        });
+
+        describe('#deleteMonster', function () {
+            it('should delete a monster with the provided id', function testDeleteMonster() {
+                var deletedMessage, returnStatus;
+                $httpBackend.expectDELETE(env.api + '/monsters/test_id').respond(200, {message: 'Deleted monster with id test_id'});
+                monsterSvc.removeMonster('test_id').then(function (response) {
+                    deletedMessage = response.data;
+                    returnStatus = response.status;
+                });
+                $httpBackend.flush();
+                expect(returnStatus).toEqual(200);
+                expect(deletedMessage.message).toEqual('Deleted monster with id test_id');
+            });
+        });
     });
 
 })();

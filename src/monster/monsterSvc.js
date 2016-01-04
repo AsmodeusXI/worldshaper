@@ -13,7 +13,9 @@
         return {
             getMonsters: getMonsters,
             getMonsterById: getMonsterById,
-            postMonster: postMonster
+            postMonster: postMonster,
+            updateMonster: updateMonster,
+            removeMonster: removeMonster
         };
 
         function getMonsters() {
@@ -43,6 +45,26 @@
                         })
                         .catch(function (error) {
                             console.log('Encountered POST error: ' + error);
+                        });
+        }
+
+        function updateMonster(id, putData) {
+            return $http.put(monsterUrl + '/' + id, putData)
+                        .then(function (response) {
+                            return response;
+                        })
+                        .catch(function (error) {
+                            console.log('Encountered PUT error: ' + error);
+                        });
+        }
+
+        function removeMonster(id) {
+            return $http.delete(monsterUrl + '/' + id)
+                        .then(function (response) {
+                            return response;
+                        })
+                        .catch(function (error) {
+                            console.log('Encountered DELETE error: ' + error);
                         });
         }
     }
