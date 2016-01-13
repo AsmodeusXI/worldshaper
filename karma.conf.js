@@ -17,6 +17,7 @@ module.exports = function(config) {
     files: [
       'node_modules/angular/angular.min.js',
       'node_modules/angular-mocks/angular-mocks.js',
+      'node_modules/lodash/index.js',
       'src/**/*.js',
       'src/**/*Spec.js'
     ],

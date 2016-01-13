@@ -1,6 +1,14 @@
 <details open class="monster-card">
     <summary class="monster-header">
-        <div class="monster-name">{{monster.name}}</div>
+        <div class="monster-header-wrapper">
+            <div class="monster-name">{{monster.name}}</div>
+            <div class="monster-edit">
+                <i class="fa fa-pencil-square-o" ng-click="prepareEdit(monster._id)"></i>
+            </div> <!-- monster-edit -->
+            <div class="monster-delete">
+                <i class="fa fa-trash-o" ng-click="deleteMonster(monster._id)"></i>
+            </div> <!--  monster-delete -->
+        </div> <!-- monster-header-wrapper -->
     </summary> <!-- monster-header -->
     <div class="monster-stats">
         <div class="monster-hp"><i class="fa fa-heart"></i> {{monster.hp}}</div>

@@ -8,7 +8,10 @@ const paths = {
     scripts: ['src/**/*.js', '!src/**/*Spec.js'],
     scriptsNoConfig: ['src/**/*.js', '!src/**/*Spec.js', '!src/config/*.js'],
     tests: 'src/**/*Spec.js',
-    angular: 'node_modules/angular/**/*.min.js',
+    thirdParty: [
+        'node_modules/lodash/index.js',
+        'node_modules/angular/**/*.min.js'
+    ],
     styles: [
         'node_modules/font-awesome/css/font-awesome.min.css'
     ],
@@ -70,8 +73,8 @@ gulp.task('build:copy-html', function () {
                 .pipe(gulp.dest(paths.output));
 });
 
-gulp.task('build:angular', function () {
-    return gulp.src(paths.angular)
+gulp.task('build:third-party', function () {
+    return gulp.src(paths.thirdParty)
                 .pipe(plugins.concat('third-party.js'))
                 .pipe(gulp.dest(paths.output));
 });
@@ -93,8 +96,8 @@ gulp.task('build:less', function () {
                 .pipe(plugins.livereload());
 });
 
-gulp.task('build:third-party', [
-    'build:angular',
+gulp.task('build:external', [
+    'build:third-party',
     'build:styles',
     'build:fonts'
 ]);
@@ -103,10 +106,10 @@ gulp.task('build-local', function (callback) {
     runSequence(
         'clean:dist',
         'build:local-config',
+        'build:external',
         'build:internal',
         'build:copy-html',
         'build:less',
-        'build:third-party',
         callback
     );
 });
@@ -115,10 +118,10 @@ gulp.task('build-prod', function (callback) {
     runSequence(
         'clean:dist',
         'build:prod-config',
+        'build:external',
         'build:internal',
         'build:copy-html',
         'build:less',
-        'build:third-party',
         callback
     );
 });
@@ -150,6 +153,6 @@ gulp.task('listen', ['default'], function () {
     plugins.livereload.listen();
     gulp.watch(paths.scriptsNoConfig, ['default']).on('change', plugins.livereload.changed);
     gulp.watch(paths.less, ['build:less']).on('change', plugins.livereload.changed);
-    gulp.watch(paths.html, ['build:less']).on('change', plugins.livereload.changed);
+    gulp.watch(paths.html, ['default']).on('change', plugins.livereload.changed);
     gulp.watch(paths.tests, ['tests:run']).on('change', plugins.livereload.changed);
 });

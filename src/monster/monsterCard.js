@@ -10,7 +10,9 @@
             templateUrl: 'monster/monsterCard.directive.html',
             restrict: 'EA',
             scope: {
-                monster: '='
+                monster: '=',
+                deleteMonster: '=',
+                prepareEdit: '='
             }
         };
 

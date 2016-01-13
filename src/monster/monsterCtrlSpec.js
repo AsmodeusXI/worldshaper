@@ -9,29 +9,50 @@
             scope = $rootScope.$new();
             mockMonsterSvc = monsterSvc;
 
+            function providePromise(response) {
+                var deferred = $q.defer();
+                deferred.resolve(response);
+                return deferred.promise;
+            };
+
             var fakeGetMonsterResponse = {
                 data: [
-                    {name: 'Goblin', hp: 30}
+                    {_id: 'test1', name: 'Goblin', hp: 30}
                 ]
-            }
+            };
+            spyOn(mockMonsterSvc, 'getMonsters').and.callFake(function () {
+                return providePromise(fakeGetMonsterResponse)
+            });
 
             var fakePostMonsterResponse = {
                 data: {
+                    _id: 'test2',
                     name: 'Kobold',
                     hp: 16
                 }
-            }
-
-            spyOn(mockMonsterSvc, 'getMonsters').and.callFake(function () {
-                var deferred = $q.defer();
-                deferred.resolve(fakeGetMonsterResponse);
-                return deferred.promise;
+            };
+            spyOn(mockMonsterSvc, 'postMonster').and.callFake(function () {
+                return providePromise(fakePostMonsterResponse)
             });
 
-            spyOn(mockMonsterSvc, 'postMonster').and.callFake(function () {
-                var deferred = $q.defer();
-                deferred.resolve(fakePostMonsterResponse);
-                return deferred.promise;
+            var fakeDeleteMonsterResponse = {
+                data: {
+                    message: 'Deleted monster with id test1'
+                }
+            };
+            spyOn(mockMonsterSvc, 'removeMonster').and.callFake(function () {
+                return providePromise(fakeDeleteMonsterResponse)
+            });
+
+            var fakeUpdateMonsterResponse = {
+                data: {
+                    _id: 'test1',
+                    name: 'Hobgoblin',
+                    hp: 44
+                }
+            };
+            spyOn(mockMonsterSvc, 'updateMonster').and.callFake(function () {
+                return providePromise(fakeUpdateMonsterResponse)
             });
 
             controller = $controller('monsterCtrl', {
@@ -40,25 +61,62 @@
             });
         }));
 
-        describe('#initialize', function () {
-            it('expects the controller to be correctly initialized', function () {
+        describe('#initialize', function testInitialize() {
+            it('expects the controller to be correctly initialized', function testValidInitialize() {
                 scope.$apply();
                 expect(mockMonsterSvc.getMonsters).toHaveBeenCalled();
-                expect(controller.model.monsters).toEqual([{name: 'Goblin', hp: 30}]);
+                expect(controller.model.monsters).toEqual([{_id: 'test1', name: 'Goblin', hp: 30}]);
             });
         });
 
-        describe('#createMonster', function () {
-            it('should post a new monster from the newMonster variable then add it to the monster list', function () {
+        describe('#createMonster', function testCreateMonster() {
+            it('should post a new monster from the newMonster variable then add it to the monster list', function testValidCreateMonster() {
                 controller.model.newMonster = {
+                    _id: 'test2',
                     name: 'Kobold',
                     hp: 12
-                }
+                };
                 controller.createMonster();
                 scope.$apply();
                 expect(mockMonsterSvc.postMonster).toHaveBeenCalled();
-                expect(controller.model.monsters).toEqual([{name: 'Goblin', hp: 30}, {name: 'Kobold', hp: 16}]);
+                expect(controller.model.monsters).toEqual([{_id: 'test1', name: 'Goblin', hp: 30}, {_id: 'test2', name: 'Kobold', hp: 16}]);
                 expect(controller.model.newMonster).toBe(null);
+            });
+        });
+
+        describe('#deleteMonster', function testDeleteMonster() {
+            it('should call the monsterSvc.delete with a given id to delete a monster', function testValidDeleteMonster() {
+                scope.$apply();
+                expect(controller.model.monsters).toEqual([{_id: 'test1', name: 'Goblin', hp: 30}]);
+                controller.deleteMonster('test1');
+                scope.$apply();
+                expect(mockMonsterSvc.removeMonster).toHaveBeenCalledWith('test1');
+                expect(controller.model.monsters).toEqual([]);
+            });
+        });
+
+        describe('#prepareEdit', function testPrepareEdit() {
+            it('should ready the editing model', function testPrepareEditResults() {
+                scope.$apply();
+                expect(controller.model.monsters).toEqual([{_id: 'test1', name: 'Goblin', hp: 30}]);
+                expect(controller.model.editMonster).toEqual({_id: null, name: null, hp: null});
+                expect(controller.model.isEditing).toBe(false);
+                controller.prepareEdit('test1');
+                expect(controller.model.editMonster).toEqual({_id: 'test1', name: 'Goblin', hp: 30});
+                expect(controller.model.isEditing).toBe(true);
+            });
+        });
+
+        describe('#editMonster', function testEditMonster() {
+            it('should call the monsterSvc.updateMonster with a given id to edit a monster', function testValidEditMonster() {
+                scope.$apply();
+                expect(controller.model.monsters).toEqual([{_id: 'test1', name: 'Goblin', hp: 30}]);
+                controller.editMonster({_id: 'test1', name: 'Hobgoblin', hp: 44});
+                controller.model.isEditing = true;
+                scope.$apply();
+                expect(mockMonsterSvc.updateMonster).toHaveBeenCalledWith('test1', {_id: 'test1', name: 'Hobgoblin', hp: 44});
+                expect(controller.model.monsters[0]).toEqual({_id: 'test1', name: 'Hobgoblin', hp: 44});
+                expect(controller.model.isEditing).toBe(false);
             });
         });
 

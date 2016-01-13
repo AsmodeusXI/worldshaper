@@ -39,14 +39,36 @@
                     border-top-left-radius: 4px;
                     border-top-right-radius: 4px;
                     width: 100%;
-                    display: flex;
 
-                    .monster-name {
-                        padding: 5px;
-                        color: white;
-                        font-size: 20px;
-                        font-weight: 300;
-                    } //monster-name
+                    .monster-header-wrapper {
+                        display: flex;
+                        align-items: space-between;
+                        flex-direction: row;
+                        justify-content: center;
+                        .monster-name {
+                            flex: 50;
+                            padding: 5px;
+                            color: white;
+                            font-size: 20px;
+                            font-weight: 300;
+                        } //monster-name
+
+                        .monster-edit {
+                            flex: 1;
+                            padding: 5px;
+                            color: white;
+                            font-size: 20px;
+                            font-weight: 300;
+                        } //monster-edit
+
+                        .monster-delete {
+                            flex: 1;
+                            padding: 5px;
+                            color: white;
+                            font-size: 20px;
+                            font-weight: 300;
+                        } //monster-delete
+                    } //monster-header-wrapper
                 } //monster-header
 
                 .monster-stats {
@@ -62,23 +84,23 @@
             } //monster-card
         } //monster-card-container
 
-        .monster-creator {
+        .monster-window {
             flex: 1;
             margin:15px;
             margin-left: 5px;
             border: 1px solid @ws-gray;
             border-radius: 4px;
-            .monster-creator-title {
+            .monster-window-title {
                 background-color: @ws-gray;
-                .monster-creator-title-text {
+                .monster-window-title-text {
                     padding: 5px;
                     color: white;
                     width: 100%;
-                } //monster-creator-title-text
-            } //monster-creator-title
-            .new-monster-form {
+                } //monster-window-title-text
+            } //monster-window-title
+            .monster-form {
                 padding:10px;
-            } //new-monster-form
+            } //monster-form
         } //monster-creator
     } //monster-container
 } //monster-body
