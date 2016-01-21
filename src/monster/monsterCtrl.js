@@ -18,11 +18,7 @@
                 name: null,
                 hp: null
             },
-            editMonster: {
-                _id: null,
-                name: null,
-                hp: null
-            },
+            editMonster: null,
             isEditing: false
         };
         vm.initialize = initialize;
@@ -71,7 +67,7 @@
         function prepareEdit(id) {
             vm.model.isEditing = true;
             var toEditMonster = _.find(vm.model.monsters, {'_id': id});
-            _.assign(vm.model.editMonster, toEditMonster);
+            vm.model.editMonster = toEditMonster;
         }
 
         function editMonster(updateMonster) {
@@ -85,6 +81,7 @@
                         })
                         .finally(function() {
                             vm.model.isEditing = false;
+                            vm.model.editMonster = null;
                         });
         }
     }

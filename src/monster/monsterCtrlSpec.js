@@ -10,9 +10,7 @@
             mockMonsterSvc = monsterSvc;
 
             function providePromise(response) {
-                var deferred = $q.defer();
-                deferred.resolve(response);
-                return deferred.promise;
+                return $q.when(response);
             };
 
             var fakeGetMonsterResponse = {
@@ -59,11 +57,13 @@
                 $scope: scope,
                 monsterSvc: mockMonsterSvc
             });
+
+            // $apply for GET in initialize()
+            scope.$apply();
         }));
 
         describe('#initialize', function testInitialize() {
             it('expects the controller to be correctly initialized', function testValidInitialize() {
-                scope.$apply();
                 expect(mockMonsterSvc.getMonsters).toHaveBeenCalled();
                 expect(controller.model.monsters).toEqual([{_id: 'test1', name: 'Goblin', hp: 30}]);
             });
@@ -86,7 +86,6 @@
 
         describe('#deleteMonster', function testDeleteMonster() {
             it('should call the monsterSvc.delete with a given id to delete a monster', function testValidDeleteMonster() {
-                scope.$apply();
                 expect(controller.model.monsters).toEqual([{_id: 'test1', name: 'Goblin', hp: 30}]);
                 controller.deleteMonster('test1');
                 scope.$apply();
@@ -97,9 +96,7 @@
 
         describe('#prepareEdit', function testPrepareEdit() {
             it('should ready the editing model', function testPrepareEditResults() {
-                scope.$apply();
                 expect(controller.model.monsters).toEqual([{_id: 'test1', name: 'Goblin', hp: 30}]);
-                expect(controller.model.editMonster).toEqual({_id: null, name: null, hp: null});
                 expect(controller.model.isEditing).toBe(false);
                 controller.prepareEdit('test1');
                 expect(controller.model.editMonster).toEqual({_id: 'test1', name: 'Goblin', hp: 30});
@@ -109,7 +106,6 @@
 
         describe('#editMonster', function testEditMonster() {
             it('should call the monsterSvc.updateMonster with a given id to edit a monster', function testValidEditMonster() {
-                scope.$apply();
                 expect(controller.model.monsters).toEqual([{_id: 'test1', name: 'Goblin', hp: 30}]);
                 controller.editMonster({_id: 'test1', name: 'Hobgoblin', hp: 44});
                 controller.model.isEditing = true;
@@ -117,6 +113,7 @@
                 expect(mockMonsterSvc.updateMonster).toHaveBeenCalledWith('test1', {_id: 'test1', name: 'Hobgoblin', hp: 44});
                 expect(controller.model.monsters[0]).toEqual({_id: 'test1', name: 'Hobgoblin', hp: 44});
                 expect(controller.model.isEditing).toBe(false);
+                expect(controller.model.editMonster).toBe(null);
             });
         });
 
