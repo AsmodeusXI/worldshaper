@@ -63,6 +63,7 @@ gulp.task('build:internal', function () {
                 .pipe(plugins.jshint())
                 .pipe(plugins.jshint.reporter('jshint-stylish'))
                 .pipe(plugins.sourcemaps.init())
+                .pipe(plugins.ngAnnotate())
                 .pipe(plugins.uglify())
                 .pipe(plugins.concat('internal.min.js'))
                 .pipe(plugins.sourcemaps.write('maps'))
