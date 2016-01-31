@@ -10,7 +10,8 @@ const paths = {
     tests: 'src/**/*Spec.js',
     thirdParty: [
         'node_modules/lodash/index.js',
-        'node_modules/angular/**/*.min.js'
+        'node_modules/angular/**/*.min.js',
+        'node_modules/angular-ui-router/release/angular-ui-router.min.js'
     ],
     styles: [
         'node_modules/font-awesome/css/font-awesome.min.css'

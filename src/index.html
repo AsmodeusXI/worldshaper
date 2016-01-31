@@ -8,43 +8,7 @@
         <link rel="stylesheet" href="index.css">
     </head>
 
-    <body ng-controller='monsterCtrl as monsterCtrl' class="monster-body">
-        <header role="banner" class="monster-title">
-            <div class="monster-title-text">Monster Compendium</div>
-        </header>
-        <main class="monster-container">
-            <section class="monster-card-container">
-                <monster-card ng-repeat='monster in monsterCtrl.model.monsters | orderBy:"name"'
-                    monster='monster'
-                    delete-monster='monsterCtrl.deleteMonster'
-                    prepare-edit='monsterCtrl.prepareEdit'>
-                </monster-card>
-            </section> <!-- monster-card-container -->
-            <aside class="monster-window">
-                <header class="monster-window-title">
-                    <div class="monster-window-title-text">
-                        Add a new monster here:
-                    </div> <!-- monster-window-title-text -->
-                </header> <!-- monster-window-title -->
-                <form class='monster-form'>
-                    Enter Name: <input ng-model='monsterCtrl.model.newMonster.name'></input>
-                    Enter HP: <input ng-model='monsterCtrl.model.newMonster.hp'></input>
-                    <button class='create-monster-button' ng-click='monsterCtrl.createMonster()'>Create!</button>
-                </form> <!-- new-monster-form -->
-                <div class="monster-window" ng-if='monsterCtrl.model.isEditing'>
-                    <header class="monster-window-title">
-                        <div class="monster-window-title-text">
-                            Edit Monster:
-                        </div> <!-- monster-window-title-text -->
-                    </header> <!-- monster-window-title -->
-                    <form class='monster-form'>
-                        Edit Name: <input ng-model='monsterCtrl.model.editMonster.name'></input>
-                        Edit HP: <input ng-model='monsterCtrl.model.editMonster.hp'></input>
-                        <button class='edit-monster-button'
-                                ng-click='monsterCtrl.editMonster(monsterCtrl.model.editMonster)'>Edit</button>
-                    </form>
-                </div> <!-- monster-editor -->
-            </aside> <!-- monster-creator -->
-        </main> <!-- monster-container -->
-    </body>
+    <div class="container">
+        <div ui-view></div>
+    </div> <!-- container -->
 </html>
