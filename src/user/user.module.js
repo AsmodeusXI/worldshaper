@@ -2,11 +2,10 @@
     'use strict';
 
     angular.module(
-        'worldshaper.monster',
+        'worldshaper.user',
         [ /* dependencies */
             'worldshaper.config',
             'ngStorage',
-            'worldshaper.user',
             'ui.router'
         ]
     );

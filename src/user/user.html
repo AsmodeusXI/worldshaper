@@ -1,0 +1,42 @@
+<div class="user-div">
+    <header class="user-title">
+        <p>Login to Realmshaper User!</p>
+    </header> <!-- user-title -->
+    <main class="user-container">
+        <div class="create-user-container">
+            <header class="create-user-header">
+                Create User:
+            </header> <!-- create-user-header -->
+            <form class="create-user-form">
+                <div class="create-username-section">
+                    <label for='create-username'>Create Username:</label>
+                    <input id='create-username' ng-model='userCtrl.model.newUser.username'></input>
+                </div> <!-- create-username-section -->
+                <div class="create-password-section">
+                    <label for='create-password'>Create Password:</label>
+                    <input id='create-password' type='password' ng-model='userCtrl.model.newUser.password'></input>
+                </div> <!-- create-password-section -->
+                <button class='create-user-button' ng-click='userCtrl.createUser()'>Create!</button>
+            </form> <!-- create-user-form -->
+        </div> <!-- create-user-container -->
+        <div class="login-user-container">
+            <header class="login-user-header">
+                Login User:
+            </header> <!-- login-user-header -->
+            <form class="login-user-form">
+                <div class="login-username-section">
+                    <label for='login-username'>Login Username:</label>
+                    <input id='login-username' ng-model='userCtrl.model.toLoginUser.username'></input>
+                </div> <!-- login-username-section -->
+                <div class="login-password-section">
+                    <label for='login-password'>Login Password:</label>
+                    <input id='login-password' type='password' ng-model='userCtrl.model.toLoginUser.password'></input>
+                </div> <!-- login-password-section -->
+                <button class='login-user-button' ng-click='userCtrl.loginUser()'>Login!</button>
+            </form> <!-- login-user-form -->
+        </div> <!-- login-user-container -->
+        <div class="logout-user-container">
+            <button class='logout-user-button' ng-click='userCtrl.logoutUser()'>Logout!</button>
+        </div> <!-- logout-user-container -->
+    </main> <!-- user-container -->
+</div> <!-- user-div -->

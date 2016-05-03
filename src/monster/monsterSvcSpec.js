@@ -14,7 +14,7 @@
         describe('#getMonsters', function () {
             it('should fetch a list of monsters when called', function testGetMonsters() {
                 var monsters, returnStatus;
-                $httpBackend.expectGET(env.api + '/monsters').respond(200, [{name: 'Goblin', hp: 30}]);
+                $httpBackend.expectGET(env.monsterApi + '/monsters').respond(200, [{name: 'Goblin', hp: 30}]);
                 monsterSvc.getMonsters().then(function (response) {
                     monsters = response.data;
                     returnStatus = response.status;
@@ -30,7 +30,7 @@
         describe('#getMonsterById', function () {
             it('should fetch a single monster by the provided id', function testGetMonsterById() {
                 var monster, returnStatus;
-                $httpBackend.expectGET(env.api + '/monsters/test_id').respond(200, {name: 'Dragon Wyrmling', hp: 44, exp: 700});
+                $httpBackend.expectGET(env.monsterApi + '/monsters/test_id').respond(200, {name: 'Dragon Wyrmling', hp: 44, exp: 700});
                 monsterSvc.getMonsterById('test_id').then(function (response) {
                     monster = response.data;
                     returnStatus = response.status;
@@ -50,7 +50,7 @@
                     name: 'Kobold',
                     hp: 16
                 };
-                $httpBackend.expectPOST(env.api + '/monsters', toPostMonster).respond(200, {name: 'Kobold', hp: 16});
+                $httpBackend.expectPOST(env.monsterApi + '/monsters', toPostMonster).respond(200, {name: 'Kobold', hp: 16});
                 monsterSvc.postMonster(toPostMonster).then(function (response) {
                     createdMonster = response.data;
                     returnStatus = response.status;
@@ -69,7 +69,7 @@
                     name: 'New Monster Name',
                     hp: 666
                 };
-                $httpBackend.expectPUT(env.api + '/monsters/test_id', monsterFieldsToUpdate).respond(200, {_id: 'test_id', name: 'New Monster Name', hp: 666});
+                $httpBackend.expectPUT(env.monsterApi + '/monsters/test_id', monsterFieldsToUpdate).respond(200, {_id: 'test_id', name: 'New Monster Name', hp: 666});
                 monsterSvc.updateMonster('test_id', monsterFieldsToUpdate).then(function (response) {
                     updatedMonster = response.data;
                     returnStatus = response.status;
@@ -85,7 +85,7 @@
         describe('#deleteMonster', function () {
             it('should delete a monster with the provided id', function testDeleteMonster() {
                 var deletedMessage, returnStatus;
-                $httpBackend.expectDELETE(env.api + '/monsters/test_id').respond(200, {message: 'Deleted monster with id test_id'});
+                $httpBackend.expectDELETE(env.monsterApi + '/monsters/test_id').respond(200, {message: 'Deleted monster with id test_id'});
                 monsterSvc.removeMonster('test_id').then(function (response) {
                     deletedMessage = response.data;
                     returnStatus = response.status;

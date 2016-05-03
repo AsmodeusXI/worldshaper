@@ -1,14 +1,20 @@
 (function () {
+    'use strict';
 
     angular
         .module('worldshaper.monster')
         .factory('monsterSvc', monsterSvc);
 
-    monsterSvc.$inject = ['$http', 'ENV'];
+    monsterSvc.$inject = ['$http', 'ENV', '$localStorage'];
 
-    function monsterSvc($http, ENV) {
+    function monsterSvc($http, ENV, $localStorage) {
 
-        var monsterUrl = ENV.api + '/monsters';
+        var monsterUrl = ENV.monsterApi + '/monsters';
+        var monsterConfig = {
+            headers: {
+                'rs-user-token': null
+            }
+        };
 
         return {
             getMonsters: getMonsters,
@@ -19,7 +25,8 @@
         };
 
         function getMonsters() {
-            return $http.get(monsterUrl)
+            monsterConfig.headers['rs-user-token'] = $localStorage.token;
+            return $http.get(monsterUrl, monsterConfig)
                         .then(function (response) {
                             return response;
                         })
@@ -29,7 +36,8 @@
         }
 
         function getMonsterById(id) {
-            return $http.get(monsterUrl + '/' + id)
+            monsterConfig.headers['rs-user-token'] = $localStorage.token;
+            return $http.get(monsterUrl + '/' + id, monsterConfig)
                         .then(function (response) {
                             return response;
                         })
@@ -39,7 +47,8 @@
         }
 
         function postMonster(postData) {
-            return $http.post(monsterUrl, postData)
+            monsterConfig.headers['rs-user-token'] = $localStorage.token;
+            return $http.post(monsterUrl, postData, monsterConfig)
                         .then(function (response) {
                             return response;
                         })
@@ -49,7 +58,8 @@
         }
 
         function updateMonster(id, putData) {
-            return $http.put(monsterUrl + '/' + id, putData)
+            monsterConfig.headers['rs-user-token'] = $localStorage.token;
+            return $http.put(monsterUrl + '/' + id, putData, monsterConfig)
                         .then(function (response) {
                             return response;
                         })
@@ -59,7 +69,8 @@
         }
 
         function removeMonster(id) {
-            return $http.delete(monsterUrl + '/' + id)
+            monsterConfig.headers['rs-user-token'] = $localStorage.token;
+            return $http.delete(monsterUrl + '/' + id, monsterConfig)
                         .then(function (response) {
                             return response;
                         })

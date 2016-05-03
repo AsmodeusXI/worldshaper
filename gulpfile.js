@@ -11,7 +11,8 @@ const paths = {
     thirdParty: [
         'node_modules/lodash/index.js',
         'node_modules/angular/**/*.min.js',
-        'node_modules/angular-ui-router/release/angular-ui-router.min.js'
+        'node_modules/angular-ui-router/release/angular-ui-router.min.js',
+        'node_modules/ngstorage/ngStorage.min.js'
     ],
     styles: [
         'node_modules/font-awesome/css/font-awesome.min.css'
@@ -26,7 +27,7 @@ const paths = {
     config: 'src/config'
 }
 
-const wrapper = '(function () {\n\"use strict\";\n\n<%= module %>\n})();'
+const wrapper = '(function () {\n\'use strict\';\n/*jshint ignore:start*/\n<%= module %> /*jshint ignore:end*/\n})();'
 
 const options = {
     local: {

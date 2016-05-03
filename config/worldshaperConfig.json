@@ -1,12 +1,14 @@
 {
     "local": {
         "ENV": {
-            "api": "http://localhost:8080/api"
+            "monsterApi": "http://localhost:8080/api",
+            "realmshaperUserApi": "http://localhost:8081/api"
         }
     },
     "production": {
         "ENV": {
-            "api": "http://ec2-52-32-157-223.us-west-2.compute.amazonaws.com:8080/api"
+            "monsterApi": "http://ec2-52-32-157-223.us-west-2.compute.amazonaws.com:8080/api",
+            "realmshaperUserApi": "http://ec2-52-32-157-223.us-west-2.compute.amazonaws.com:8081/api"
         }
     }
 }

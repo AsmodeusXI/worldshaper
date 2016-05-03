@@ -19,7 +19,7 @@
                 ]
             };
             spyOn(mockMonsterSvc, 'getMonsters').and.callFake(function () {
-                return providePromise(fakeGetMonsterResponse)
+                return providePromise(fakeGetMonsterResponse);
             });
 
             var fakePostMonsterResponse = {
@@ -30,7 +30,7 @@
                 }
             };
             spyOn(mockMonsterSvc, 'postMonster').and.callFake(function () {
-                return providePromise(fakePostMonsterResponse)
+                return providePromise(fakePostMonsterResponse);
             });
 
             var fakeDeleteMonsterResponse = {
@@ -39,7 +39,7 @@
                 }
             };
             spyOn(mockMonsterSvc, 'removeMonster').and.callFake(function () {
-                return providePromise(fakeDeleteMonsterResponse)
+                return providePromise(fakeDeleteMonsterResponse);
             });
 
             var fakeUpdateMonsterResponse = {
@@ -50,7 +50,7 @@
                 }
             };
             spyOn(mockMonsterSvc, 'updateMonster').and.callFake(function () {
-                return providePromise(fakeUpdateMonsterResponse)
+                return providePromise(fakeUpdateMonsterResponse);
             });
 
             controller = $controller('monsterCtrl', {

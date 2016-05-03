@@ -5,9 +5,9 @@
         .module('worldshaper.monster')
         .controller('monsterCtrl', monsterCtrl);
 
-    monsterCtrl.$inject = ['monsterSvc'];
+    monsterCtrl.$inject = ['monsterSvc', 'userSvc', '$localStorage', '$state'];
 
-    function monsterCtrl(monsterSvc) {
+    function monsterCtrl(monsterSvc, userSvc, $localStorage, $state) {
 
         /* jshint validthis: true */
         var vm = this;
@@ -26,6 +26,7 @@
         vm.deleteMonster = deleteMonster;
         vm.editMonster = editMonster;
         vm.prepareEdit = prepareEdit;
+        vm.logoutUser = logoutUser;
 
         initialize();
 
@@ -83,6 +84,22 @@
                             vm.model.isEditing = false;
                             vm.model.editMonster = null;
                         });
+        }
+
+        function logoutUser() {
+            userSvc.logoutUser($localStorage.user._id)
+                    .then(function (response) {
+                        vm.model.message = response.data.message;
+                        console.log(vm.model.message);
+                    })
+                    .catch(function (error) {
+                        console.log('Error: logoutUser');
+                        console.log(error);
+                    })
+                    .finally(function () {
+                        $localStorage.token = null;
+                        $state.go('users');
+                    });
         }
     }
 

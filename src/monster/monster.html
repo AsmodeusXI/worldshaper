@@ -1,7 +1,8 @@
 <div class="monster-body">
     <header role="banner" class="monster-title">
-        <div class="monster-title-text">Monster Compendium</div>
-    </header> <!-- monster-title --> 
+        <div class="monster-title-text">Monster Compendium</div> <!-- monster-title-text -->
+        <div class="monster-logout-icon"><i class="fa fa-sign-out" ng-click="monsterCtrl.logoutUser()"></i></div> <!-- monster-logout-icon -->
+    </header> <!-- monster-title -->
     <main class="monster-container">
         <section class="monster-card-container">
             <monster-card ng-repeat='monster in monsterCtrl.model.monsters | orderBy:"name"'

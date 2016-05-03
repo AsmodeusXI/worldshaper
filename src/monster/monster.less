@@ -8,12 +8,21 @@
         width: 100%;
         height: 100px;
         background-color: @ws-gray;
-        display: block;
+        display: flex;
+        flex-direction: column;
         .monster-title-text {
             color: white;
             padding:10px;
             font-size: 30px;
+            flex: 1;
         } //monster-title-text
+        .monster-logout-icon {
+            color: white;
+            padding: 10px;
+            font-size: 20px;
+            flex: 1;
+            align-self: flex-end;
+        } //monster-logout-icon
     } //monster-title
 
     .monster-container {
