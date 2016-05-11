@@ -2,7 +2,9 @@ env:
   global:
   - USER=bitnami
   - HOST=ec2-52-35-76-230.us-west-2.compute.amazonaws.com
-languages: node_js
+language: node_js
+node_js:
+  - "5.1"
 branches:
   only: master
 before_install:
@@ -15,7 +17,7 @@ install:
 - npm install
 before_script:
 - echo -e "Host $HOST\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
-script: gulp prod
+script: npm run build:prod
 deploy:
   provider: s3
   access_key_id: AKIAJJS4DOZOSWWT5ZVA

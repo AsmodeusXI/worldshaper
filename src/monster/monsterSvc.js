@@ -5,7 +5,6 @@
         .module('worldshaper.monster')
         .factory('monsterSvc', monsterSvc);
 
-    monsterSvc.$inject = ['$http', 'ENV', '$localStorage'];
 
     function monsterSvc($http, ENV, $localStorage) {
 

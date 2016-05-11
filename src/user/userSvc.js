@@ -5,7 +5,6 @@
         .module('worldshaper.user')
         .factory('userSvc', userSvc);
 
-    userSvc.$inject = ['$http', 'ENV', '$localStorage'];
 
     function userSvc($http, ENV, $localStorage) {
 

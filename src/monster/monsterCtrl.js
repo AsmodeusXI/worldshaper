@@ -5,7 +5,6 @@
         .module('worldshaper.monster')
         .controller('monsterCtrl', monsterCtrl);
 
-    monsterCtrl.$inject = ['monsterSvc', 'userSvc', '$localStorage', '$state'];
 
     function monsterCtrl(monsterSvc, userSvc, $localStorage, $state) {
 

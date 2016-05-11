@@ -5,7 +5,6 @@
         .module('worldshaper.user')
         .controller('userCtrl', userCtrl);
 
-    userCtrl.$inject = ['userSvc', '$localStorage', '$state'];
 
     function userCtrl(userSvc, $localStorage, $state) {
 
