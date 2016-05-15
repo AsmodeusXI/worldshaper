@@ -31,7 +31,6 @@
             userSvc.loginUser(vm.model.toLoginUser.username, vm.model.toLoginUser.password)
                     .then(function (response) {
                         //TODO: Pass to $scope.$storage ?
-                        console.log(response.data);
                         $localStorage.token = response.data.local.token;
                         $localStorage.user = response.data;
                         $state.go('monsters');
@@ -48,7 +47,6 @@
             userSvc.createUser(vm.model.newUser.username, vm.model.newUser.password)
                     .then(function (response) {
                         vm.model.message = 'New user "' + response.data.local.username + '" created!';
-                        console.log(response.data);
                     })
                     .catch(function (response) {
                         console.log('Error: createUser');
@@ -62,7 +60,6 @@
             userSvc.logoutUser($localStorage.user._id)
                     .then(function (response) {
                         vm.model.message = response.data.message;
-                        console.log(vm.model.message);
                     })
                     .catch(function (error) {
                         console.log('Error: logoutUser');

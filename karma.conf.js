@@ -2,7 +2,7 @@
 // Generated on Wed Sep 02 2015 12:28:51 GMT-0500 (CDT)
 
 module.exports = function(config) {
-  config.set({
+  var configuration = {
 
     // base path that will be used to resolve all patterns (eg. files, exclude)
     basePath: '',
@@ -19,7 +19,7 @@ module.exports = function(config) {
       'node_modules/angular-mocks/angular-mocks.js',
       'node_modules/lodash/index.js',
       'node_modules/ngstorage/ngStorage.js',
-      'node_modules/ui-router/release/angular-ui-router.min.js',
+      'node_modules/angular-ui-router/release/angular-ui-router.min.js',
       'src/**/*.js',
       'src/**/*Spec.js'
     ],
@@ -61,11 +61,23 @@ module.exports = function(config) {
 
     // start these browsers
     // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
-    browsers: ['PhantomJS2'],
+    browsers: ['Chrome'],
 
+    customLaunchers: {
+      Chrome_travis_ci: {
+        base: 'Chrome',
+        flags: ['--no-sandbox']
+      }
+    },
 
     // Continuous Integration mode
     // if true, Karma captures browsers, runs the tests and exits
     singleRun: false
-  })
+  };
+
+  if(process.env.TRAVIS){
+    configuration.browsers = ['Chrome_travis_ci'];
+  }
+
+  config.set(configuration);
 }
