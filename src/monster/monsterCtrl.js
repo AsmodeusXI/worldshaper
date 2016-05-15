@@ -33,7 +33,9 @@
         function initialize() {
             monsterSvc.getMonsters()
                         .then(function (response) {
-                            vm.model.monsters = response.data;
+                            if(Object.prototype.toString.call( response.data ) === '[object Array]') {
+                                vm.model.monsters = response.data;
+                            }
                         })
                         .catch(function (response) {
                             console.log('Error?');
