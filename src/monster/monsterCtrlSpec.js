@@ -16,7 +16,8 @@
             var fakeGetMonsterResponse = {
                 data: [
                     {_id: 'test1', name: 'Goblin', hp: 30}
-                ]
+                ],
+                status: 200
             };
             spyOn(mockMonsterSvc, 'getMonsters').and.callFake(function () {
                 return providePromise(fakeGetMonsterResponse);

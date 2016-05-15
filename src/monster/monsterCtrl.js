@@ -33,7 +33,9 @@
         function initialize() {
             monsterSvc.getMonsters()
                         .then(function (response) {
-                            vm.model.monsters = response.data;
+                            if(response.status === 200) {
+                                vm.model.monsters = response.data;
+                            }
                         })
                         .catch(function (response) {
                             console.log('Error?');
