@@ -14,12 +14,12 @@
         $stateProvider
             .state('monsters', {
                 url: '/monsters',
-                templateUrl: 'monster/monster.html',
+                templateUrl: 'src/monster/monster.html',
                 controller: 'monsterCtrl as monsterCtrl'
             })
             .state('users', {
                 url: '/',
-                templateUrl: 'user/user.html',
+                templateUrl: 'src/user/user.html',
                 controller: 'userCtrl as userCtrl'
             });
         $urlRouterProvider.otherwise('/');

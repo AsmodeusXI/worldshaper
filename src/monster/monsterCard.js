@@ -7,7 +7,7 @@
 
     function monsterCardDirective() {
         var directive = {
-            templateUrl: 'monster/monsterCard.directive.html',
+            templateUrl: 'src/monster/monsterCard.directive.html',
             restrict: 'EA',
             scope: {
                 monster: '=',
