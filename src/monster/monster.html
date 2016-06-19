@@ -20,6 +20,10 @@
             <form class='monster-form'>
                 Enter Name: <input ng-model='monsterCtrl.model.newMonster.name'></input>
                 Enter HP: <input ng-model='monsterCtrl.model.newMonster.hp'></input>
+                Enter AC: <input ng-model='monsterCtrl.model.newMonster.ac'></input>
+                Enter Atk: <input ng-model='monsterCtrl.model.newMonster.atk'></input>
+                Enter DpR: <input ng-model='monsterCtrl.model.newMonster.dpr'></input>
+                Enter Save: <input ng-model='monsterCtrl.model.newMonster.sdc'></input>
                 <button class='create-monster-button' ng-click='monsterCtrl.createMonster()'>Create!</button>
             </form> <!-- monster-form -->
             <div class="monster-window" ng-if='monsterCtrl.model.isEditing'>
@@ -31,6 +35,10 @@
                 <form class='monster-form'>
                     Edit Name: <input ng-model='monsterCtrl.model.editMonster.name'></input>
                     Edit HP: <input ng-model='monsterCtrl.model.editMonster.hp'></input>
+                    Edit AC: <input ng-model='monsterCtrl.model.editMonster.ac'></input>
+                    Edit Atk: <input ng-model='monsterCtrl.model.editMonster.atk'></input>
+                    Edit DpR: <input ng-model='monsterCtrl.model.editMonster.dpr'></input>
+                    Edit Save: <input ng-model='monsterCtrl.model.editMonster.sdc'></input>
                     <button class='edit-monster-button'
                             ng-click='monsterCtrl.editMonster(monsterCtrl.model.editMonster)'>Edit</button>
                 </form> <!-- monster-form -->

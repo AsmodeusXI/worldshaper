@@ -15,7 +15,12 @@
             monsters: [],
             newMonster: {
                 name: null,
-                hp: null
+                hp: null,
+                exp: null,
+                ac: null,
+                atk: null,
+                dpr: null,
+                sdc: null
             },
             editMonster: null,
             isEditing: false
