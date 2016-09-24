@@ -3,7 +3,7 @@
 
     describe('userCtrl', function () {
 
-        beforeEach(module('worldshaper.user'));
+        beforeEach(angular.mock.module('worldshaper.user'));
 
         var _controller,
             _scope,

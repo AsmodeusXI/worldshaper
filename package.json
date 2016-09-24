@@ -16,10 +16,11 @@
     "styles": "cp node_modules/font-awesome/css/font-awesome.min.css dist/",
     "fonts": "cp node_modules/font-awesome/fonts/* dist/fonts/",
     "less": "lessc src/index.less dist/index.css",
-    "thirdParty": "uglifyjs node_modules/lodash/index.js node_modules/angular/angular.min.js node_modules/angular-ui-router/release/angular-ui-router.min.js node_modules/ngstorage/ngStorage.min.js -c -m -o dist/third-party.min.js --source-map dist/third-party.min.js.map",
+    "browserify": "browserify dist/internal.min.js -o dist/internal.min.bundle.js",
+    "thirdParty": "uglifyjs node_modules/angular/angular.min.js node_modules/angular-ui-router/release/angular-ui-router.min.js node_modules/ngstorage/ngStorage.min.js -c -m -o dist/third-party.min.js --source-map dist/third-party.min.js.map",
     "prebuild:local": "npm run clean && npm run reset",
     "prebuild:prod": "npm run clean && npm run reset",
-    "build:internal": "npm run jshint && npm run annotate-files && npm run uglify && npm run annotate-files -- -d",
+    "build:internal": "npm run jshint && npm run annotate-files && npm run uglify && npm run browserify && npm run annotate-files -- -d",
     "postbuild:internal": "babel dist/internal.min.js -o dist/internal.min.js",
     "build:external": "npm run thirdParty && npm run styles && npm run fonts",
     "build:static": "npm run copyHtml && npm run less",
@@ -40,7 +41,9 @@
   "dependencies": {
     "angular": "^1.4.4",
     "angular-ui-router": "^0.2.17",
+    "browserify": "^13.1.0",
     "del": "^2.0.2",
+    "dnd-5e-cr-calculator": "^1.1.0",
     "font-awesome": "^4.4.0",
     "http-server": "^0.8.0",
     "less": "^2.5.1",
@@ -48,7 +51,8 @@
     "ngstorage": "^0.3.10",
     "run-sequence": "^1.1.5",
     "uglify": "^0.1.5",
-    "uglify-js": "^2.6.2"
+    "uglify-js": "^2.6.2",
+    "watchify": "^3.7.0"
   },
   "devDependencies": {
     "angular-mocks": "^1.4.5",
@@ -59,6 +63,7 @@
     "jshint": "^2.8.0",
     "jshint-stylish": "^2.0.1",
     "karma": "^0.13.9",
+    "karma-browserify": "^5.1.0",
     "karma-chrome-launcher": "^1.0.1",
     "karma-jasmine": "^0.3.6",
     "lodash": "^3.10.1",

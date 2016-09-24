@@ -4,7 +4,7 @@
     describe('monsterSvc', function () {
 
         var monsterSvc, $httpBackend, env;
-        beforeEach(module('worldshaper.monster'));
+        beforeEach(angular.mock.module('worldshaper.monster'));
         beforeEach(inject(function(_monsterSvc_,_$httpBackend_,_ENV_) {
             monsterSvc = _monsterSvc_;
             $httpBackend = _$httpBackend_;

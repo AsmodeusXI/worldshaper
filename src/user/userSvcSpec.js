@@ -4,7 +4,7 @@
     describe('userSvc', function () {
 
         var userSvc, $httpBackend, env;
-        beforeEach(module('worldshaper.user'));
+        beforeEach(angular.mock.module('worldshaper.user'));
         beforeEach(inject(function(_userSvc_,_$httpBackend_,_ENV_) {
             userSvc = _userSvc_;
             $httpBackend = _$httpBackend_;
