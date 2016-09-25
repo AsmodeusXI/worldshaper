@@ -1,48 +1,48 @@
 <div class="monster-body">
-    <header role="banner" class="monster-title">
-        <div class="monster-title-text">Monster Compendium</div> <!-- monster-title-text -->
-        <div class="monster-logout-icon"><i class="fa fa-sign-out" ng-click="monsterCtrl.logoutUser()"></i></div> <!-- monster-logout-icon -->
-    </header> <!-- monster-title -->
-    <main class="monster-container">
-        <section class="monster-card-container">
-            <monster-card ng-repeat='monster in monsterCtrl.model.monsters | orderBy:"name"'
-                monster='monster'
-                delete-monster='monsterCtrl.deleteMonster'
-                prepare-edit='monsterCtrl.prepareEdit'>
-            </monster-card>
-        </section> <!-- monster-card-container -->
-        <aside class="monster-window">
-            <header class="monster-window-title">
-                <div class="monster-window-title-text">
-                    Add a new monster here:
-                </div> <!-- monster-window-title-text -->
-            </header> <!-- monster-window-title -->
-            <form class='monster-form'>
-                Enter Name: <input ng-model='monsterCtrl.model.newMonster.name'></input>
-                Enter HP: <input ng-model='monsterCtrl.model.newMonster.hp'></input>
-                Enter AC: <input ng-model='monsterCtrl.model.newMonster.ac'></input>
-                Enter Atk: <input ng-model='monsterCtrl.model.newMonster.atk'></input>
-                Enter DpR: <input ng-model='monsterCtrl.model.newMonster.dpr'></input>
-                Enter Save: <input ng-model='monsterCtrl.model.newMonster.sdc'></input>
-                <button class='create-monster-button' ng-click='monsterCtrl.createMonster()'>Create!</button>
-            </form> <!-- monster-form -->
-            <div class="monster-window" ng-if='monsterCtrl.model.isEditing'>
-                <header class="monster-window-title">
-                    <div class="monster-window-title-text">
-                        Edit Monster:
-                    </div> <!-- monster-window-title-text -->
-                </header> <!-- monster-window-title -->
-                <form class='monster-form'>
-                    Edit Name: <input ng-model='monsterCtrl.model.editMonster.name'></input>
-                    Edit HP: <input ng-model='monsterCtrl.model.editMonster.hp'></input>
-                    Edit AC: <input ng-model='monsterCtrl.model.editMonster.ac'></input>
-                    Edit Atk: <input ng-model='monsterCtrl.model.editMonster.atk'></input>
-                    Edit DpR: <input ng-model='monsterCtrl.model.editMonster.dpr'></input>
-                    Edit Save: <input ng-model='monsterCtrl.model.editMonster.sdc'></input>
-                    <button class='edit-monster-button'
-                            ng-click='monsterCtrl.editMonster(monsterCtrl.model.editMonster)'>Edit</button>
-                </form> <!-- monster-form -->
-            </div> <!-- monster-window -->
-        </aside> <!-- monster-window -->
-    </main> <!-- monster-container -->
+  <header role="banner" class="monster-title">
+    <div class="monster-title-text">Monster Compendium</div> <!-- monster-title-text -->
+    <div class="monster-logout-icon"><i class="fa fa-sign-out" ng-click="monsterCtrl.logoutUser()"></i></div> <!-- monster-logout-icon -->
+  </header> <!-- monster-title -->
+  <main class="monster-container">
+    <section class="monster-card-container">
+      <monster-card ng-repeat='monster in monsterCtrl.model.monsters | orderBy:"name"'
+                    monster='monster'
+                    delete-monster='monsterCtrl.deleteMonster'
+                    prepare-edit='monsterCtrl.prepareEdit'>
+      </monster-card>
+    </section> <!-- monster-card-container -->
+    <aside class="monster-window">
+      <header class="monster-window-title">
+        <div class="monster-window-title-text">
+          Add a new monster here:
+        </div> <!-- monster-window-title-text -->
+      </header> <!-- monster-window-title -->
+      <form class='monster-form'>
+        Enter Name: <input ng-model='monsterCtrl.model.newMonster.name'></input>
+        Enter HP: <input ng-model='monsterCtrl.model.newMonster.hp'></input>
+        Enter AC: <input ng-model='monsterCtrl.model.newMonster.ac'></input>
+        Enter Atk: <input ng-model='monsterCtrl.model.newMonster.atk'></input>
+        Enter DpR: <input ng-model='monsterCtrl.model.newMonster.dpr'></input>
+        Enter Save: <input ng-model='monsterCtrl.model.newMonster.sdc'></input>
+        <button class='create-monster-button' ng-click='monsterCtrl.createMonster()'>Create!</button>
+      </form> <!-- monster-form -->
+      <div class="monster-window" ng-if='monsterCtrl.model.isEditing'>
+        <header class="monster-window-title">
+          <div class="monster-window-title-text">
+            Edit Monster:
+          </div> <!-- monster-window-title-text -->
+        </header> <!-- monster-window-title -->
+        <form class='monster-form'>
+          Edit Name: <input ng-model='monsterCtrl.model.editMonster.name'></input>
+          Edit HP: <input ng-model='monsterCtrl.model.editMonster.hp'></input>
+          Edit AC: <input ng-model='monsterCtrl.model.editMonster.ac'></input>
+          Edit Atk: <input ng-model='monsterCtrl.model.editMonster.atk'></input>
+          Edit DpR: <input ng-model='monsterCtrl.model.editMonster.dpr'></input>
+          Edit Save: <input ng-model='monsterCtrl.model.editMonster.sdc'></input>
+          <button class='edit-monster-button'
+            ng-click='monsterCtrl.editMonster(monsterCtrl.model.editMonster)'>Edit</button>
+        </form> <!-- monster-form -->
+      </div> <!-- monster-window -->
+    </aside> <!-- monster-window -->
+  </main> <!-- monster-container -->
 </div> <!-- monster-body -->

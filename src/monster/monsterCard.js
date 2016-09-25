@@ -1,22 +1,22 @@
 (function () {
-    'use strict';
+  'use strict';
 
-    angular
-        .module('worldshaper.monster')
-        .directive('monsterCard', monsterCardDirective);
+  angular
+  .module('worldshaper.monster')
+  .directive('monsterCard', monsterCardDirective);
 
-    function monsterCardDirective() {
-        var directive = {
-            templateUrl: 'src/monster/monsterCard.directive.html',
-            restrict: 'EA',
-            scope: {
-                monster: '=',
-                deleteMonster: '=',
-                prepareEdit: '='
-            }
-        };
+  function monsterCardDirective() {
+    var directive = {
+      templateUrl: 'src/monster/monsterCard.directive.html',
+      restrict: 'EA',
+      scope: {
+        monster: '=',
+        deleteMonster: '=',
+        prepareEdit: '='
+      }
+    };
 
-        return directive;
-    }
+    return directive;
+  }
 
 })();

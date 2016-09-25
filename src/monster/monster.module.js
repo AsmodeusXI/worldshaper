@@ -1,14 +1,14 @@
 (function () {
-    'use strict';
+  'use strict';
 
-    angular.module(
-        'worldshaper.monster',
-        [ /* dependencies */
-            'worldshaper.config',
-            'ngStorage',
-            'worldshaper.user',
-            'ui.router'
-        ]
-    );
+  angular.module(
+    'worldshaper.monster',
+    [ /* dependencies */
+      'worldshaper.config',
+      'ngStorage',
+      'worldshaper.user',
+      'ui.router'
+    ]
+  );
 
 })();
