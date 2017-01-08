@@ -5,6 +5,8 @@
     beforeEach(angular.mock.module('worldshaper.monster'));
 
     var controller, scope, mockMonsterSvc;
+    var fakeGetMonsterResponse, fakePostMonsterResponse,
+        fakeDeleteMonsterResponse, fakeUpdateMonsterResponse;
     beforeEach(inject(function ($controller, $rootScope, $q, monsterSvc) {
       scope = $rootScope.$new();
       mockMonsterSvc = monsterSvc;
@@ -13,7 +15,7 @@
         return $q.when(response);
       };
 
-      var fakeGetMonsterResponse = {
+      fakeGetMonsterResponse = {
         data: [
           {_id: 'test1', name: 'Goblin', hp: 30}
         ],
@@ -23,7 +25,7 @@
         return providePromise(fakeGetMonsterResponse);
       });
 
-      var fakePostMonsterResponse = {
+      fakePostMonsterResponse = {
         data: {
           _id: 'test2',
           name: 'Kobold', hp: 5, ac: 14, dpr: 30, atk: 5, sdc: 14, cr: "1"
@@ -33,7 +35,7 @@
         return providePromise(fakePostMonsterResponse);
       });
 
-      var fakeDeleteMonsterResponse = {
+      fakeDeleteMonsterResponse = {
         data: {
           message: 'Deleted monster with id test1'
         }
@@ -42,7 +44,7 @@
         return providePromise(fakeDeleteMonsterResponse);
       });
 
-      var fakeUpdateMonsterResponse = {
+      fakeUpdateMonsterResponse = {
         data: {
           _id: 'test1',
           name: 'Hobgoblin',
@@ -90,6 +92,38 @@
         ]);
         expect(controller.model.newMonster).toBe(null);
       });
+
+      it('should calculate cr with dprStr if it is a String', function testCreateMonsterWithDprStr() {
+        controller.model.newMonster = {
+          _id: 'test3',
+          name: 'Orc',
+          hp: 5,
+          ac: 14,
+          dpr: '7d6+5',
+          atk: 5,
+          sdc: 14,
+        };
+        fakePostMonsterResponse.data = {
+          _id: 'test3',
+          name: 'Orc',
+          hp: 5,
+          ac: 14,
+          dpr: null,
+          dprStr: '7d6+5',
+          atk: 5,
+          sdc: 14,
+          cr: '1'
+        };
+        controller.createMonster();
+        expect(controller.model.newMonster.cr).toEqual("1");
+        scope.$apply();
+        expect(mockMonsterSvc.postMonster).toHaveBeenCalled();
+        expect(controller.model.monsters).toEqual([
+          {_id: 'test1', name: 'Goblin', hp: 30},
+          {_id: 'test3', name: 'Orc', hp: 5, ac: 14, dpr: null, dprStr: '7d6+5', atk: 5, sdc: 14, cr: "1"}
+        ]);
+        expect(controller.model.newMonster).toBe(null);
+      });
     });
 
     describe('#deleteMonster', function testDeleteMonster() {
@@ -122,6 +156,62 @@
         expect(controller.model.monsters[0]).toEqual({_id: 'test1', name: 'Hobgoblin', hp: 44, ac: 14, dpr: 30, atk: 5, sdc: 14, cr: '2'});
         expect(controller.model.isEditing).toBe(false);
         expect(controller.model.editMonster).toBe(null);
+      });
+
+      it('should allow an update with a dprStr to function properly', function testValidEditMonster() {
+        fakeUpdateMonsterResponse.data = {_id: 'test1', name: 'Hobgoblin', hp: 44, ac: 14, dpr: null, dprStr: '7d6+5', atk: 5, sdc: 14, cr: '2'};
+        expect(controller.model.monsters).toEqual([{_id: 'test1', name: 'Goblin', hp: 30}]);
+        controller.editMonster({_id: 'test1', name: 'Hobgoblin', hp: 44, ac: 14, dpr: '7d6+5', atk: 5, sdc: 14});
+        controller.model.isEditing = true;
+        scope.$apply();
+        expect(mockMonsterSvc.updateMonster).toHaveBeenCalledWith('test1', {_id: 'test1', name: 'Hobgoblin', hp: 44, ac: 14, dpr: null, dprStr: '7d6+5', atk: 5, sdc: 14, cr: '2'});
+        expect(controller.model.monsters[0]).toEqual({_id: 'test1', name: 'Hobgoblin', hp: 44, ac: 14, dpr: null, dprStr: '7d6+5', atk: 5, sdc: 14, cr: '2'});
+        expect(controller.model.isEditing).toBe(false);
+        expect(controller.model.editMonster).toBe(null);
+      });
+
+      it('should switch from using dprStr to using dpr when changed', function testValidEditMonster() {
+        controller.model.monsters.push({_id: 'test4', name: 'Dragon', hp: 30, dprStr: '7d6+5'})
+        fakeUpdateMonsterResponse.data = {_id: 'test4', name: 'Hobgoblin', hp: 44, ac: 14, dpr: 30, atk: 5, sdc: 14, cr: '2'};
+        expect(controller.model.monsters).toEqual([{_id: 'test1', name: 'Goblin', hp: 30},{_id: 'test4', name: 'Dragon', hp: 30, dprStr: '7d6+5'}]);
+        controller.editMonster({_id: 'test4', name: 'Hobgoblin', hp: 44, ac: 14, dpr: 30, atk: 5, sdc: 14});
+        controller.model.isEditing = true;
+        scope.$apply();
+        expect(mockMonsterSvc.updateMonster).toHaveBeenCalledWith('test4', {_id: 'test4', name: 'Hobgoblin', hp: 44, ac: 14, dpr: 30, atk: 5, sdc: 14, cr: '2'});
+        expect(controller.model.monsters[1]).toEqual({_id: 'test4', name: 'Hobgoblin', hp: 44, ac: 14, dpr: 30, atk: 5, sdc: 14, cr: '2'});
+        expect(controller.model.isEditing).toBe(false);
+        expect(controller.model.editMonster).toBe(null);
+      });
+    });
+
+    describe('#displayRelevantDpr', function testDisplayRelevantDpr() {
+      it('should display the dprStr if it is around', function testDisplayDprStr() {
+        var testMonster = {
+          _id: 'test5',
+          name: 'Illithid',
+          dpr: 0,
+          dprStr: '8d10+6'
+        }
+        var actual = controller.displayRelevantDpr(testMonster);
+        expect(actual).toEqual('8d10+6');
+      });
+
+      it('should display the dpr if dprStr is null or missing', function testDisplayDpr() {
+        var testMonster = {
+          _id: 'test5',
+          name: 'Illithid',
+          dpr: 30,
+        }
+        var actual = controller.displayRelevantDpr(testMonster);
+        expect(actual).toEqual(30);
+        testMonster.dprStr = null;
+        var actual = controller.displayRelevantDpr(testMonster);
+        expect(actual).toEqual(30);
+      });
+
+      it('should return null if monster is null', function testDisplayNull() {
+        var actual = controller.displayRelevantDpr(null);
+        expect(actual).toEqual(null);
       });
     });
 

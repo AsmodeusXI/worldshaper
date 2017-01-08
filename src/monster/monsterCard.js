@@ -12,7 +12,8 @@
       scope: {
         monster: '=',
         deleteMonster: '=',
-        prepareEdit: '='
+        prepareEdit: '=',
+        displayRelevantDpr: '='
       }
     };
 

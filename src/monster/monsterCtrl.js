@@ -19,6 +19,7 @@
         ac: null,
         atk: null,
         dpr: null,
+        dprStr: null,
         sdc: null,
         cr: null
       },
@@ -31,6 +32,7 @@
     vm.editMonster = editMonster;
     vm.prepareEdit = prepareEdit;
     vm.logoutUser = logoutUser;
+    vm.displayRelevantDpr = displayRelevantDpr;
     var cr = require('dnd-5e-cr-calculator');
     var _ = require('lodash');
 
@@ -48,15 +50,43 @@
       });
     }
 
+    function displayRelevantDpr(monster) {
+      if(!monster) {
+        return null;
+      }
+      var relevantDpr = monster.dpr;
+      if(monster.dprStr) {
+        relevantDpr = monster.dprStr;
+      }
+      return relevantDpr;
+    }
+
+    function calculateExpectedCR(monster) {
+      var newCr = -1;
+      if (typeof monster.dpr === 'string') {
+        monster.dprStr = _.clone(monster.dpr);
+        monster.dpr = null;
+        newCr = cr.calculateWithDice(
+          monster.hp,
+          monster.ac,
+          monster.dprStr,
+          monster.atk,
+          monster.sdc
+        );
+      } else {
+        newCr = cr.calculate(
+          monster.hp,
+          monster.ac,
+          monster.dpr,
+          monster.atk,
+          monster.sdc
+        );
+      }
+      return newCr;
+    }
+
     function createMonster() {
-      var newCr = cr.calculate(
-        vm.model.newMonster.hp,
-        vm.model.newMonster.ac,
-        vm.model.newMonster.dpr,
-        vm.model.newMonster.atk,
-        vm.model.newMonster.sdc
-      );
-      vm.model.newMonster.cr = newCr;
+      vm.model.newMonster.cr = calculateExpectedCR(vm.model.newMonster);
       monsterSvc.postMonster(vm.model.newMonster)
       .then(function (response) {
         vm.model.monsters.push(response.data);
@@ -88,14 +118,7 @@
     }
 
     function editMonster(updateMonster) {
-      var newCr = cr.calculate(
-        updateMonster.hp,
-        updateMonster.ac,
-        updateMonster.dpr,
-        updateMonster.atk,
-        updateMonster.sdc
-      );
-      updateMonster.cr = newCr;
+      updateMonster.cr = calculateExpectedCR(updateMonster);
       monsterSvc.updateMonster(updateMonster._id, updateMonster)
       .then(function (response) {
         _.remove(vm.model.monsters, {'_id': updateMonster._id});
