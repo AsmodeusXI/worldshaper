@@ -8,7 +8,8 @@
       <monster-card ng-repeat='monster in monsterCtrl.model.monsters | orderBy:"name"'
                     monster='monster'
                     delete-monster='monsterCtrl.deleteMonster'
-                    prepare-edit='monsterCtrl.prepareEdit'>
+                    prepare-edit='monsterCtrl.prepareEdit'
+                    display-relevant-dpr='monsterCtrl.displayRelevantDpr'>
       </monster-card>
     </section> <!-- monster-card-container -->
     <aside class="monster-window">
