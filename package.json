@@ -43,7 +43,7 @@
     "angular-ui-router": "^0.3.2",
     "browserify": "^13.1.0",
     "del": "^2.0.2",
-    "dnd-5e-cr-calculator": "^2.0.0",
+    "dnd-5e-cr-calculator": "^2.1.0",
     "font-awesome": "^4.4.0",
     "http-server": "^0.8.0",
     "less": "^2.5.1",
